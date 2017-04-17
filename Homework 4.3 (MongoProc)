@@ -38,8 +38,15 @@ You will see a message below about the number of times you have submitted a solu
 
 Tip: Be sure to go to settings in mongoProc, and point mongod1 to your mongod (probably localhost:27017), and web1 to your web url (probably localhost:8082)
 
-Result:
+Result (ver que se consultan los mismos documentos que se devuelven):
 1. The blog home page
+    db.posts.createIndex({date:-1})
+    db.posts.explain("executionStats").find().sort({date:-1}).limit(10)
 
 2. The page that displays blog posts by tag (http://localhost:8082/tag/whatever)
+    db.posts.createIndex({tags:1,date:-1})
+    db.posts.explain("executionStats").find({"tags":"tune"}).sort({date:-1}).limit(10)
+    
 3. The page that displays a blog entry by permalink (http://localhost:8082/post/permalink)db.sysprofile.find({"ns":"school2.students"}).sort({"millis":-1})
+    db.posts.createIndex({permalink:1})
+    db.posts.explain("executionStats").find({"permalink":"mxwnnnqaflufnqwlekfd"})
